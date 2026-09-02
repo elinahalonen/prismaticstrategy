@@ -16,7 +16,12 @@
   h2.fam { padding:6px 24px; margin:18px 0 0; font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:#57534e; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; padding:12px 24px 24px; }
   .card { background:#fff; border:1px solid #e7e5e4; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 3px rgba(0,0,0,.06); }
-  .thumb { background-color:#fafaf9; background-image:linear-gradient(45deg,#eee 25%,transparent 25%),linear-gradient(-45deg,#eee 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#eee 75%),linear-gradient(-45deg,transparent 75%,#eee 75%); background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; display:flex; align-items:center; justify-content:center; min-height:240px; }
+  .thumb { display:flex; align-items:center; justify-content:center; min-height:240px; padding:12px; }
+  /* background themes for the artwork area */
+  body[data-bg="dark"]  .thumb { background:#111827; }
+  body[data-bg="light"] .thumb { background:#ffffff; }
+  body[data-bg="mid"]   .thumb { background:#6b7280; }
+  body[data-bg="checker"] .thumb { background-color:#fafaf9; background-image:linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%); background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; }
   .thumb img { max-width:100%; max-height:320px; display:block; }
   .meta { padding:10px 12px; border-top:1px solid #f0efee; font-size:12px; }
   .meta .name { font-weight:600; word-break:break-all; }
@@ -39,7 +44,15 @@
   <div class="controls">
     <label>Design: <select id="famSel"><option value="">All</option></select></label>
     <input type="checkbox" id="chkFinal" checked hidden><input type="checkbox" id="chkRaw" checked hidden>
-    <span style="color:#78716c">24 themeable (raw) SVGs &mdash; ready to upload from the <code>upload/</code> folder</span>
+    <label>Background:
+      <select id="bgSel">
+        <option value="dark">Dark</option>
+        <option value="light">White</option>
+        <option value="mid">Mid grey</option>
+        <option value="checker">Checkerboard</option>
+      </select>
+    </label>
+    <span style="color:#78716c">24 themeable (raw) SVGs</span>
   </div>
 </header>
 <div id="out"></div>
@@ -77,6 +90,10 @@ function render(){
   document.getElementById('count').textContent=n+' of '+files.length+' shown';
 }
 famSel.onchange=chkFinal.onchange=chkRaw.onchange=render;
+const bgSel=document.getElementById('bgSel');
+function setBg(){ document.body.dataset.bg=bgSel.value; }
+bgSel.onchange=setBg;
+setBg();
 render();
 </script>
 </body>
