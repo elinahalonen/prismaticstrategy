@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVG Gallery</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin:0; font:14px system-ui,sans-serif; background:#f5f5f4; color:#1c1917; }
+  header { padding:18px 24px; border-bottom:1px solid #d6d3d1; background:#fff; position:sticky; top:0; z-index:2; }
+  header h1 { margin:0 0 4px; font-size:18px; }
+  header p { margin:0; color:#78716c; }
+  .controls { margin-top:12px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .controls label { cursor:pointer; }
+  .controls select { font:inherit; padding:3px 6px; }
+  h2.fam { padding:6px 24px; margin:18px 0 0; font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:#57534e; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; padding:12px 24px 24px; }
+  .card { background:#fff; border:1px solid #e7e5e4; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .thumb { background-color:#fafaf9; background-image:linear-gradient(45deg,#eee 25%,transparent 25%),linear-gradient(-45deg,#eee 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#eee 75%),linear-gradient(-45deg,transparent 75%,#eee 75%); background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; display:flex; align-items:center; justify-content:center; min-height:240px; }
+  .thumb img { max-width:100%; max-height:320px; display:block; }
+  .meta { padding:10px 12px; border-top:1px solid #f0efee; font-size:12px; }
+  .meta .name { font-weight:600; word-break:break-all; }
+  .meta .sub { color:#78716c; margin-top:2px; }
+  .badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:11px; margin-right:6px; }
+  .badge.raw { background:#fef3c7; color:#92400e; }
+  .badge.final { background:#dcfce7; color:#166534; }
+  .meta a { color:#2563eb; text-decoration:none; }
+  @media (prefers-color-scheme: dark){
+    body{background:#1c1917;color:#e7e5e4} header{background:#292524;border-color:#44403c}
+    h2.fam{color:#a8a29e} .card{background:#292524;border-color:#44403c} .thumb{background-color:#0c0a09}
+    .meta{border-color:#3a3633} .badge.raw{background:#78350f;color:#fde68a} .badge.final{background:#14532d;color:#bbf7d0}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>SVG Gallery &mdash; Prismatic Strategy</h1>
+  <p id="count"></p>
+  <div class="controls">
+    <label>Design: <select id="famSel"><option value="">All</option></select></label>
+    <input type="checkbox" id="chkFinal" checked hidden><input type="checkbox" id="chkRaw" checked hidden>
+    <span style="color:#78716c">24 themeable (raw) SVGs &mdash; ready to upload from the <code>upload/</code> folder</span>
+  </div>
+</header>
+<div id="out"></div>
+<script>
+const files=[{"path": "deformed-grid-mesh-01-raw.svg", "family": "deformed-grid-mesh", "raw": true, "label": "deformed-grid-mesh-01-raw.svg"}, {"path": "deformed-grid-mesh-02-raw.svg", "family": "deformed-grid-mesh", "raw": true, "label": "deformed-grid-mesh-02-raw.svg"}, {"path": "deformed-grid-mesh-03-raw.svg", "family": "deformed-grid-mesh", "raw": true, "label": "deformed-grid-mesh-03-raw.svg"}, {"path": "deformed-grid-mesh-04-raw.svg", "family": "deformed-grid-mesh", "raw": true, "label": "deformed-grid-mesh-04-raw.svg"}, {"path": "deformed-grid-mesh-05-raw.svg", "family": "deformed-grid-mesh", "raw": true, "label": "deformed-grid-mesh-05-raw.svg"}, {"path": "rose-mesh-01-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-01-raw.svg"}, {"path": "rose-mesh-02-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-02-raw.svg"}, {"path": "rose-mesh-03-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-03-raw.svg"}, {"path": "rose-mesh-04-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-04-raw.svg"}, {"path": "rose-mesh-05-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-05-raw.svg"}, {"path": "rose-mesh-06-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-06-raw.svg"}, {"path": "rose-mesh-07-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-07-raw.svg"}, {"path": "rose-mesh-08-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-08-raw.svg"}, {"path": "rose-mesh-09-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-09-raw.svg"}, {"path": "rose-mesh-10-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-10-raw.svg"}, {"path": "rose-mesh-11-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-11-raw.svg"}, {"path": "rose-mesh-12-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-12-raw.svg"}, {"path": "rose-mesh-13-raw.svg", "family": "rose-mesh", "raw": true, "label": "rose-mesh-13-raw.svg"}, {"path": "wavy-fabric-01-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-01-raw.svg"}, {"path": "wavy-fabric-02-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-02-raw.svg"}, {"path": "wavy-fabric-03-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-03-raw.svg"}, {"path": "wavy-fabric-04-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-04-raw.svg"}, {"path": "wavy-fabric-05-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-05-raw.svg"}, {"path": "wavy-fabric-06-raw.svg", "family": "wavy-fabric", "raw": true, "label": "wavy-fabric-06-raw.svg"}];
+const out=document.getElementById('out');
+const famSel=document.getElementById('famSel');
+[...new Set(files.map(f=>f.family))].sort().forEach(fm=>{
+  const o=document.createElement('option'); o.value=fm; o.textContent=fm; famSel.appendChild(o);
+});
+function render(){
+  const fFam=famSel.value, showFinal=chkFinal.checked, showRaw=chkRaw.checked;
+  out.innerHTML=''; let n=0;
+  const groups={};
+  files.forEach(f=>{
+    if(fFam && f.family!==fFam) return;
+    if(f.raw && !showRaw) return;
+    if(!f.raw && !showFinal) return;
+    (groups[f.family]=groups[f.family]||[]).push(f); n++;
+  });
+  Object.keys(groups).sort().forEach(fm=>{
+    const h=document.createElement('h2'); h.className='fam'; h.textContent=fm+' ('+groups[fm].length+')'; out.appendChild(h);
+    const g=document.createElement('div'); g.className='grid';
+    groups[fm].forEach(f=>{
+      const c=document.createElement('div'); c.className='card';
+      const src='upload/'+encodeURIComponent(f.path);
+      c.innerHTML='<div class="thumb"><img loading="lazy" src="'+src+'" alt="'+f.path+'"></div>'+
+        '<div class="meta"><div class="name">'+f.label+'</div>'+
+        '<div class="sub"><span class="badge '+(f.raw?'raw':'final')+'">'+(f.raw?'raw':'finished')+'</span>'+
+        '<a href="'+src+'" target="_blank">open full</a></div></div>';
+      g.appendChild(c);
+    });
+    out.appendChild(g);
+  });
+  document.getElementById('count').textContent=n+' of '+files.length+' shown';
+}
+famSel.onchange=chkFinal.onchange=chkRaw.onchange=render;
+render();
+</script>
+</body>
+</html>
