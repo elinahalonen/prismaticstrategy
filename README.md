@@ -1,19 +1,25 @@
-# Prismatic Strategy — SVG assets
+# Prismatic Strategy — mesh SVG system
 
-Generated mesh/pattern SVGs for the Prismatic Strategy website.
+Generated mesh/pattern SVGs for the Prismatic Strategy website, plus preview pages.
 
-## `upload/`
-24 themeable ("raw") SVGs across three designs:
+## `upload/` — 24 raw (themeable) SVGs
+Numbers match the original Book of Shapes downloads, so brief references line up:
 
-- `deformed-grid-mesh-01..05`
-- `rose-mesh-01..13`
-- `wavy-fabric-01..06`
+- `deformed-grid-mesh-00..04`
+- `rose-mesh-00..12`  (brief's primary rose = **rose-mesh-11**, sharper alt = **rose-mesh-02**)
+- `wavy-fabric-00..05`  (brief's preferred wave = **wavy-fabric-04**)
 
-Each is the **raw** version: colours are driven by CSS variables in an inline
-`<style>` block (`--stroke-color`, `--fill-color`, `--background-color`,
-`--occlusion-color`), so they can be recoloured/themed by overriding those
-variables, or inherit `currentColor`.
+Colours are driven by CSS variables (`--stroke-color`, `--fill-color`,
+`--background-color`); transparent background and `viewBox` preserved.
 
-## `gallery.html`
-Open in a browser for a grid overview of all 24 SVGs, grouped by design and
-filtered by a Design dropdown.
+## `preview.html` — role-based colour preview
+Shows each family doing its brief job:
+- **Rose** as monochrome focal device (Diagnose/olive · Reframe/gold · Design/coral), tested at real sizes.
+- **Wavy** as a banner: SVG alpha-mask over a CSS gradient (`navy → olive → gold → coral → navy`).
+- **Deformed grid** as an environmental field with colour confined to a seam.
+- Toggle warm-paper / navy page backgrounds; recolour roses live.
+
+Palette in `preview.html` is **placeholder hex** — swap the `:root` variables for the real brand values.
+
+## `gallery.html` — plain grid
+All 24 SVGs as thumbnails, grouped by design, with a background switcher.

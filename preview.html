@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesh System Preview</title>
+<style>
+  /* ---- BRAND PALETTE (placeholders — swap for real hex) ---- */
+  :root{
+    --navy:#16233e;
+    --paper:#f4efe6;
+    --gold:#c8a24a;
+    --coral:#e0785d;
+    --olive:#6f7a3f;
+    --ink:#16233e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);transition:background .25s,color .25s}
+  body[data-page="navy"]{background:var(--navy);color:var(--paper)}
+  header{position:sticky;top:0;z-index:5;padding:14px 28px;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,.1);display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+  body[data-page="navy"] header{background:rgba(10,16,30,.8);border-color:rgba(255,255,255,.12)}
+  header h1{font:600 16px 'Spectral',serif;margin:0;margin-right:auto}
+  .swatches{display:flex;gap:6px}
+  .sw{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+  .btn{font:inherit;font-size:13px;padding:5px 12px;border:1px solid currentColor;border-radius:20px;background:transparent;color:inherit;cursor:pointer}
+  .btn.on{background:var(--ink);color:var(--paper)}
+  body[data-page="navy"] .btn.on{background:var(--paper);color:var(--navy)}
+  section{padding:36px 28px;border-bottom:1px solid rgba(128,128,128,.2)}
+  section h2{font:600 20px 'Spectral',serif;margin:0 0 4px}
+  section p.role{margin:0 0 24px;max-width:70ch;opacity:.8;font-size:14px}
+  .note{font-size:12px;opacity:.6}
+
+  /* ---- the mask engine: shows --paint only where the SVG strokes are ---- */
+  .art{background:var(--paint);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+
+  /* Rose */
+  .rose-trio{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-end;margin-bottom:32px}
+  .rose-trio figure{margin:0;text-align:center}
+  .rose-trio .art{width:96px;height:96px}
+  .rose-trio figcaption{margin-top:8px;font-size:13px;font-weight:600}
+  .rose-trio small{display:block;font-weight:400;opacity:.6}
+  .sizes{display:flex;gap:28px;align-items:flex-end;margin-bottom:12px}
+  .sizes .art{--paint:var(--olive)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+  .cell{border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:12px;text-align:center;background:rgba(128,128,128,.05)}
+  .cell .art{width:110px;height:110px;margin:0 auto}
+  .cell .name{font-size:11px;margin-top:8px;word-break:break-all}
+  .cell.pick{outline:2px solid var(--gold);outline-offset:2px}
+  .cell .tag{display:inline-block;font-size:10px;background:var(--gold);color:#000;padding:1px 6px;border-radius:4px;margin-top:4px}
+
+  /* Wavy banners */
+  .banner{height:74px;border-radius:6px;margin-bottom:14px}
+  .banner .name{font-size:11px;opacity:.6;margin:2px 0 16px}
+  .wavy{width:100%;height:74px;-webkit-mask:var(--m) center/100% 100% no-repeat;mask:var(--m) center/100% 100% no-repeat}
+  .seq-navy{background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 18%,var(--olive) 34%,var(--gold) 50%,var(--coral) 66%,var(--navy) 88%,var(--navy) 100%)}
+  .seq-quiet{background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 30%,var(--gold) 55%,var(--coral) 78%,var(--coral) 100%)}
+  .seq-paper{background:linear-gradient(90deg,var(--paper) 0%,var(--paper) 15%,var(--gold) 38%,var(--coral) 60%,var(--olive) 78%,var(--paper) 100%)}
+
+  /* Grid field */
+  .field{position:relative;height:260px;border-radius:8px;overflow:hidden;border:1px solid rgba(128,128,128,.25)}
+  .field .mesh{position:absolute;inset:0;-webkit-mask:var(--m) center/cover no-repeat;mask:var(--m) center/cover no-repeat;
+    background:radial-gradient(120% 100% at 85% 50%, var(--coral) 0%, var(--gold) 14%, var(--navy) 42%, var(--navy) 100%)}
+  body[data-page="navy"] .field{background:var(--navy)}
+  .field .label{position:absolute;left:24px;top:50%;transform:translateY(-50%);font:600 22px 'Spectral',serif;max-width:50%}
+  .gridfam{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:20px}
+  .gridfam .cell .art{width:100%;height:130px;--paint:var(--gold)}
+</style>
+</head>
+<body data-page="paper">
+<header>
+  <h1>Mesh system — live colour preview</h1>
+  <div class="swatches" title="palette (placeholders)">
+    <span class="sw" style="background:var(--navy)"></span>
+    <span class="sw" style="background:var(--paper)"></span>
+    <span class="sw" style="background:var(--gold)"></span>
+    <span class="sw" style="background:var(--coral)"></span>
+    <span class="sw" style="background:var(--olive)"></span>
+  </div>
+  <button class="btn on" id="pgPaper">Warm paper</button>
+  <button class="btn" id="pgNavy">Navy</button>
+</header>
+
+<!-- ============ ROSE ============ -->
+<section>
+  <h2>Rose meshes — monochrome focal devices</h2>
+  <p class="role">One colour each, no gradients. The method trio Diagnose / Reframe / Design, shown on <code>rose-mesh-11</code> (the brief's primary rose).</p>
+
+  <div class="rose-trio">
+    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--olive)"></div><figcaption>Diagnose<small>olive</small></figcaption></figure>
+    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--gold)"></div><figcaption>Reframe<small>gold</small></figcaption></figure>
+    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--coral)"></div><figcaption>Design<small>coral</small></figcaption></figure>
+  </div>
+
+  <p class="role" style="margin-bottom:8px">Tested at real website sizes (32 / 48 / 72 / 120px). Watch where the fine lines start to drop out:</p>
+  <div class="sizes">
+    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:32px;height:32px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:48px;height:48px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:72px;height:72px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:120px;height:120px"></div>
+  </div>
+
+  <p class="role" style="margin:26px 0 8px">All roses — colour set by the <b>Rose colour</b> control. Suggested files are flagged.</p>
+  <div style="margin-bottom:16px">
+    <label style="font-size:13px">Rose colour:
+      <select id="roseColor">
+        <option value="var(--coral)">Coral</option>
+        <option value="var(--gold)">Gold</option>
+        <option value="var(--olive)">Olive</option>
+        <option value="var(--navy)">Navy</option>
+        <option value="var(--paper)">Warm paper</option>
+      </select>
+    </label>
+  </div>
+  <div class="grid" id="roseGrid"></div>
+</section>
+
+<!-- ============ WAVY ============ -->
+<section>
+  <h2>Wavy mesh — connective banner</h2>
+  <p class="role">SVG used as an alpha mask over a CSS gradient, so colour travels <i>through</i> the material. Preferred file <code>wavy-fabric-04</code>. Long passages of base colour, narrower transitions.</p>
+
+  <div class="banner"><div class="wavy seq-navy" style="--m:url('upload/wavy-fabric-04.svg')"></div></div>
+  <div class="name">wavy-fabric-04 · navy → olive → gold → coral → navy</div>
+
+  <div class="banner"><div class="wavy seq-quiet" style="--m:url('upload/wavy-fabric-04.svg')"></div></div>
+  <div class="name">wavy-fabric-04 · quieter: navy → gold → coral</div>
+
+  <div class="banner"><div class="wavy seq-paper" style="--m:url('upload/wavy-fabric-04.svg')"></div></div>
+  <div class="name">wavy-fabric-04 · on paper: paper → gold → coral → olive → paper</div>
+
+  <p class="role" style="margin:26px 0 8px">Other wavy files, same navy sequence — to compare the weave:</p>
+  <div id="wavyFam"></div>
+</section>
+
+<!-- ============ GRID ============ -->
+<section>
+  <h2>Deformed grid — environmental field</h2>
+  <p class="role">Behind short content only. Structure stays quiet; colour appears in a limited region/seam (here a warm seam at the right), most of the field resting in navy. Brief's field file <code>deformed-grid-mesh-01</code>.</p>
+
+  <div class="field">
+    <div class="mesh" style="--m:url('upload/deformed-grid-mesh-01.svg')"></div>
+    <div class="label">An apparently orderly situation, changing as it is examined.</div>
+  </div>
+
+  <p class="role" style="margin:26px 0 8px">All grid variants (single gold, to compare structure):</p>
+  <div class="gridfam" id="gridFam"></div>
+</section>
+
+<script>
+const roses=[0,1,2,3,4,5,6,7,8,9,10,11,12].map(n=>`rose-mesh-${String(n).padStart(2,'0')}.svg`);
+const wavies=[0,1,2,3,4,5].map(n=>`wavy-fabric-${String(n).padStart(2,'0')}.svg`);
+const grids=[0,1,2,3,4].map(n=>`deformed-grid-mesh-${String(n).padStart(2,'0')}.svg`);
+const rosePick={ 'rose-mesh-11.svg':'primary', 'rose-mesh-02.svg':'sharper alt' };
+
+// rose grid
+const rg=document.getElementById('roseGrid');
+roses.forEach(f=>{
+  const pick=rosePick[f];
+  const c=document.createElement('div'); c.className='cell'+(pick?' pick':'');
+  c.innerHTML=`<div class="art rose-art" style="--m:url('upload/${f}')"></div>`+
+    `<div class="name">${f}</div>`+(pick?`<span class="tag">${pick}</span>`:'');
+  rg.appendChild(c);
+});
+function setRoseColor(v){ document.querySelectorAll('.rose-art').forEach(a=>a.style.setProperty('--paint',v)); }
+const rc=document.getElementById('roseColor'); rc.onchange=()=>setRoseColor(rc.value); setRoseColor(rc.value);
+
+// wavy family
+const wf=document.getElementById('wavyFam');
+wavies.forEach(f=>{
+  const b=document.createElement('div');
+  b.innerHTML=`<div class="banner"><div class="wavy seq-navy" style="--m:url('upload/${f}')"></div></div><div class="name">${f}</div>`;
+  wf.appendChild(b);
+});
+
+// grid family
+const gf=document.getElementById('gridFam');
+grids.forEach(f=>{
+  const c=document.createElement('div'); c.className='cell';
+  c.innerHTML=`<div class="art" style="--m:url('upload/${f}')"></div><div class="name">${f}</div>`;
+  gf.appendChild(c);
+});
+
+// page bg toggle
+const pP=document.getElementById('pgPaper'), pN=document.getElementById('pgNavy');
+pP.onclick=()=>{document.body.dataset.page='paper';pP.classList.add('on');pN.classList.remove('on')};
+pN.onclick=()=>{document.body.dataset.page='navy';pN.classList.add('on');pP.classList.remove('on')};
+</script>
+</body>
+</html>
