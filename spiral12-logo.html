@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spiral 12 Logo Study</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;--gold:#c8a24a;--coral:#e0785d;--olive:#6f7a3f;}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 28px;border-bottom:1px solid rgba(0,0,0,.12);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  header h1{font:600 16px 'Spectral',serif;margin:0;margin-right:auto}
+  label{font-size:13px}
+  .board{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .pane{padding:34px 28px;min-height:340px}
+  .pane.paper{background:var(--paper)}
+  .pane.navy{background:var(--navy)}
+  .pane h2{font:600 12px 'Inter';letter-spacing:.08em;text-transform:uppercase;margin:0 0 22px;opacity:.6}
+  .pane.navy h2{color:var(--paper)}
+  .sizes{display:flex;gap:34px;align-items:flex-end;flex-wrap:wrap}
+  figure{margin:0;text-align:center}
+  .mark{-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+  figcaption{margin-top:8px;font-size:11px;opacity:.55}
+  .pane.navy figcaption{color:var(--paper)}
+  .s200{width:200px;height:200px}.s120{width:120px;height:120px}.s64{width:64px;height:64px}.s32{width:32px;height:32px}
+  /* lockup: mark + wordmark */
+  .lockup{display:flex;align-items:center;gap:14px;margin-top:30px}
+  .lockup .mark{width:44px;height:44px}
+  .lockup .wm{font:600 22px 'Spectral',serif}
+  .lockup .wm .thin{font-weight:400;opacity:.7}
+  .pane.navy .wm{color:var(--paper)}
+</style>
+</head>
+<body>
+<header>
+  <h1>spiral-mesh-12 — logo study (solid, no gradient)</h1>
+  <label>Weight: <select id="weight"><option value="w2">Bold</option><option value="w1">Medium</option></select></label>
+  <label>On paper: <select id="cPaper"><option value="var(--navy)">Navy</option><option value="var(--coral)">Coral</option><option value="var(--gold)">Gold</option><option value="var(--olive)">Olive</option></select></label>
+  <label>On navy: <select id="cNavy"><option value="var(--paper)">Paper</option><option value="var(--gold)">Gold</option><option value="var(--coral)">Coral</option></select></label>
+</header>
+<div class="board">
+  <div class="pane paper" id="panePaper">
+    <h2>On warm paper</h2>
+    <div class="sizes"></div>
+    <div class="lockup"><div class="mark"></div><div class="wm">Prismatic <span class="thin">Strategy</span></div></div>
+  </div>
+  <div class="pane navy" id="paneNavy">
+    <h2>On website blue</h2>
+    <div class="sizes"></div>
+    <div class="lockup"><div class="mark"></div><div class="wm">Prismatic <span class="thin">Strategy</span></div></div>
+  </div>
+</div>
+<script>
+function file(){ return `logos/spiral-logo-12-${document.getElementById('weight').value}.svg`; }
+function paint(pane,color){
+  const f=file();
+  pane.querySelector('.sizes').innerHTML=
+    ['s200','s120','s64','s32'].map(s=>`<figure><div class="mark ${s}" style="--m:url('${f}');background:${color}"></div><figcaption>${s.slice(1)}px</figcaption></figure>`).join('');
+  const lk=pane.querySelector('.lockup .mark'); lk.style.setProperty('--m',`url('${f}')`); lk.style.background=color;
+}
+function render(){
+  paint(document.getElementById('panePaper'), document.getElementById('cPaper').value);
+  paint(document.getElementById('paneNavy'),  document.getElementById('cNavy').value);
+}
+['weight','cPaper','cNavy'].forEach(id=>document.getElementById(id).onchange=render);
+render();
+</script>
+</body>
+</html>
