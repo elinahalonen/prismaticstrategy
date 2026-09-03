@@ -1,0 +1,40 @@
+/* The mesh graphic system. Every device is an <img> of a themed SVG in assets/mesh/,
+   so the line work stays vector and the colour lives in the file's own gradient.
+   Apparent line weight is held constant by vector-effect: non-scaling-stroke. */
+:root {
+  --mesh-stroke: 0.96;       /* rose + wave default apparent weight, in px */
+  --mesh-stroke-fine: 0.7;   /* environmental grid, so it stays quiet */
+  --rose-size-lg: 128px;
+  --rose-size-md: 96px;
+  --rose-size-sm: 64px;
+}
+
+.ps-rose { width: var(--rose-size-md); height: auto; }
+.ps-rose--lg { width: var(--rose-size-lg); }
+.ps-rose--sm { width: var(--rose-size-sm); }
+
+/* A rose with a short numeral or letter sitting in its central opening. */
+.ps-rose-mark { position: relative; display: inline-grid; place-items: center; }
+.ps-rose-mark > .ps-rose-mark__glyph {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--text-on-deep);
+}
+
+/* Wavy banner: a full-width colour-carrying seam. */
+.ps-wave { display: block; width: 100%; height: auto; }
+.ps-wave-band { overflow: hidden; padding-block: var(--space-6); }
+.ps-wave-band .ps-wave { min-width: 900px; }
+
+/* Environmental field: cropped, low contrast, never behind long text. */
+.ps-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.5;
+  mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 70%, transparent);
+}
+.ps-field img { width: 130%; max-width: none; transform: translate(-14%, -10%); }

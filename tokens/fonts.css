@@ -1,0 +1,5 @@
+/* Webfonts. No binaries were supplied, so all three families load from Google Fonts.
+   Newsreader — editorial headings and pull quotes
+   Source Sans 3 — body copy, navigation, labels, buttons
+   Instrument Sans — the Prismatic Strategy wordmark only */
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,400;0,500;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Instrument+Sans:wght@400;500;600&display=swap");

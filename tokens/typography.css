@@ -1,0 +1,33 @@
+:root {
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-wordmark: "Instrument Sans", "Source Sans 3", Helvetica, Arial, sans-serif;
+
+  /* Fluid editorial scale. Body sits at 17-18px: plain and generous. */
+  --text-xs:   0.8125rem;                        /* 13px — labels, footer meta */
+  --text-sm:   0.9375rem;                        /* 15px — captions, form help */
+  --text-base: 1rem;                             /* 16px — body */
+  --text-lg:   clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem);
+  --text-xl:   clamp(1.1875rem, 0.7vw + 1rem, 1.375rem);   /* standfirst */
+  --text-2xl:  clamp(1.3125rem, 0.9vw + 1rem, 1.5rem);     /* h3 */
+  --text-3xl:  clamp(1.5rem, 1.5vw + 1rem, 1.9375rem);     /* h2 */
+  --text-4xl:  clamp(1.75rem, 2.2vw + 1rem, 2.375rem);     /* h1 */
+  --text-5xl:  clamp(2rem, 2.9vw + 1rem, 3rem);            /* hero */
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.24;
+  --leading-body: 1.62;
+  --leading-loose: 1.75;
+
+  --tracking-display: -0.018em;
+  --tracking-body: 0;
+  --tracking-label: 0.06em;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --measure-prose: 62ch;   /* comfortable reading width */
+  --measure-narrow: 46ch;  /* standfirst, pull quote */
+}

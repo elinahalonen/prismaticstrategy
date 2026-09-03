@@ -1,0 +1,72 @@
+:root {
+  /* ---- brand base ---------------------------------------------------- */
+  --navy: #092A49;
+  --paper: #F7F3EC;
+  --soft-white: #FDFCFB;
+  --olive: #747A4B;
+  --coral: #DE6B57;
+  --gold: #D5A22E;
+  --teal: #176F73;
+
+  /* ---- navy ramp (structure, depth) ---------------------------------- */
+  --navy-950: #04131F;
+  --navy-900: #061D33;
+  --navy-800: #092A49; /* base */
+  --navy-700: #0D3A61;
+  --navy-600: #14507F;
+  --navy-500: #2A6C9E;
+  --navy-300: #7FA8C7;
+  --navy-100: #D3E1EC;
+
+  /* ---- paper ramp (reading surfaces) --------------------------------- */
+  --paper-50:  #FDFCFB;
+  --paper-100: #FAF7F1;
+  --paper-200: #F7F3EC; /* base */
+  --paper-300: #EFE8DC;
+  --paper-400: #E2D8C6;
+  --paper-500: #C8BBA5;
+  --paper-700: #8A7F6C;
+
+  /* ---- accents. 300 = readable on navy, 700 = readable on paper ------ */
+  --gold-300: #EFCC7C;  --gold-500: #D5A22E;  --gold-700: #8F6A14;
+  --coral-300: #F0A392; --coral-500: #DE6B57; --coral-700: #9E3F2A;
+  --olive-300: #B2B786; --olive-500: #747A4B; --olive-700: #4B4F2C;
+  --teal-300: #6FB1B3;  --teal-500: #176F73;  --teal-700: #0D4A4D;
+
+  /* ---- semantic: deep (navy) surfaces -------------------------------- */
+  --surface-deep: var(--navy-800);
+  --surface-deep-low: var(--navy-900);
+  --surface-deep-raised: var(--navy-700);
+  --text-on-deep: var(--paper-200);
+  --text-on-deep-muted: rgba(247, 243, 236, 0.72);
+  --text-on-deep-faint: rgba(247, 243, 236, 0.52);
+  --rule-on-deep: rgba(247, 243, 236, 0.18);
+  --rule-on-deep-strong: rgba(247, 243, 236, 0.34);
+
+  /* ---- semantic: paper surfaces -------------------------------------- */
+  --surface-page: var(--paper-200);
+  --surface-raised: var(--paper-50);
+  --surface-sunken: var(--paper-300);
+  --text-primary: var(--navy-800);
+  --text-secondary: #3A4C5E;
+  --text-muted: #64717E;
+  --rule-on-page: rgba(9, 42, 73, 0.14);
+  --rule-on-page-strong: rgba(9, 42, 73, 0.3);
+
+  /* ---- roles ---------------------------------------------------------- */
+  --accent-primary: var(--coral-500);   /* the lead accent: links, active marks */
+  --accent-secondary: var(--gold-500);  /* second voice: numerals, small devices */
+  --accent-tertiary: var(--olive-500);  /* third voice: quiet structure */
+  --accent-rare: var(--teal-500);       /* sparingly, only when a real distinction is needed */
+
+  --link-on-page: var(--coral-700);
+  --link-on-page-hover: var(--navy-800);
+  --link-on-deep: var(--gold-300);
+  --link-on-deep-hover: var(--paper-50);
+  --focus-ring: var(--gold-300);
+
+  /* method-stage assignment — a way to tell three parts apart, not doctrine */
+  --stage-diagnose: var(--olive-500);
+  --stage-reframe: var(--gold-500);
+  --stage-design: var(--coral-500);
+}

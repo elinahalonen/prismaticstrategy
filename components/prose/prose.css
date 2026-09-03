@@ -1,0 +1,6 @@
+/* Long-form reading. Applied to any block of source copy. */
+.ps-prose { max-width: var(--measure-prose); font-size: var(--text-base); line-height: var(--leading-body); }
+.ps-prose > * + * { margin-top: 1.1em; }
+.ps-prose--lead { font-size: var(--text-xl); line-height: var(--leading-snug); max-width: var(--measure-narrow); font-weight: var(--weight-light); }
+.ps-prose ul { padding-left: 1.1em; margin: 0; }
+.ps-prose li + li { margin-top: 0.5em; }

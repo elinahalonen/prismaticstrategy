@@ -1,30 +1,28 @@
-# Prismatic Strategy — mesh SVG system
+# prismaticstrategy.com
 
-Generated mesh/pattern SVGs for the Prismatic Strategy website, plus preview pages.
+Static, hand-coded site for Prismatic Strategy (Elina Halonen). Plain HTML/CSS/JS,
+no build step — served from this repo's root via GitHub Pages at the custom domain
+`prismaticstrategy.com`.
 
-## `upload/` — 65 SVGs
-Six families. Numbers match the original Book of Shapes downloads.
+## Structure
+- `index.html` — the site (one page, in-page nav).
+- `styles.css` — entry point; `@import`s the token + component CSS.
+- `tokens/` — design tokens: `colors`, `typography`, `space`, `motion`, `base`, `mesh`, `fonts`.
+- `components/` — `site/` (layout) and `prose/` (long-form text).
+- `assets/brand/` — portrait (`elina.webp` + `.png` fallback), `favicon.svg`/`.ico`,
+  `apple-touch-icon.png`, and `prism-mark.svg` (the logo mark used in the header/footer).
+- `assets/mesh/` — the themed mesh-graphic SVGs (optimised with SVGO).
 
-- **rose-mesh** (8) — kept **grey / single-colour** (brief: roses are monochrome, no gradient). `rose-mesh-02` is the kept primary. `rose-mesh-0903-00` is a newer-date rose.
-- **deformed-grid-mesh** (5), **wavy-fabric** (6), **nested-polygons** (12), **polar-mesh** (16), **spiral-mesh** (18) — **radial gradient baked in**.
+## Editing
+Edit the HTML/CSS directly — no tooling required. Fonts load from Google Fonts.
 
-### Gradient treatment (non-rose files)
-Each non-rose SVG now paints a full-viewBox `<rect>` filled with a radial gradient,
-masked by the original mesh strokes — so one coherent radial runs from the centre out:
+## Deploy (GitHub Pages)
+1. Settings → Pages → deploy from `main`, root.
+2. The `CNAME` file points at `prismaticstrategy.com`; set the DNS for that domain to
+   GitHub Pages so the site resolves there. (The site uses absolute paths like
+   `/styles.css`, so it is intended to serve from a domain root, not a project subpath.)
 
-`navy (#16233e) → olive (#6f7a3f) → gold (#c8a24a) → coral (#e0785d) → navy`
-
-Colours are **placeholder hex** — to rebrand, change the stops (search `stop-color`)
-or re-run the bake from the grey originals. Transparent background and `viewBox` preserved.
-Grey originals remain in `extracted/` locally (not committed).
-
-## `preview.html` — role-based colour preview
-Rose trio (Diagnose/olive · Reframe/gold · Design/coral), wavy banner, grid field,
-and an "additional families" explorer. Toggle warm-paper / navy backgrounds.
-
-## `gallery.html` — plain grid
-All 65 SVGs by family, with a background switcher (defaults to mid-grey so both the
-grey roses and the navy-heavy gradients read well).
-
-> Note: CSS masks / gradients only render when served over http (local server or
-> GitHub Pages), not from a `file://` path.
+## `design-workshop/`
+Logo exploration and brand assets built during design (mesh gallery/preview, the prism
+logo studies, all colour/gradient logo variants and PNG/favicon exports, and the design
+brief). Not part of the live site — kept for reference.

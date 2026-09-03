@@ -1,0 +1,33 @@
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5rem;
+  --space-11: 6.5rem;
+  --space-12: 8rem;
+
+  /* vertical rhythm of a full-width band; generous on desktop, halved on mobile */
+  --band-y: clamp(3.5rem, 7vw, 7.5rem);
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --max-width: 78rem;   /* 1248px page frame */
+  --max-text: 42rem;    /* single-column reading column */
+
+  --radius-none: 0;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --border-hair: 1px;
+  --border-mark: 2px;
+
+  /* elevation is used rarely: a hairline first, a whisper of shade second */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(9, 42, 73, 0.06);
+  --shadow-md: 0 6px 20px -8px rgba(9, 42, 73, 0.16);
+}
