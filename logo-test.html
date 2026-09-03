@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spiral Logo Test</title>
+<style>
+  :root{--navy:#16233e;--paper:#f4efe6;--gold:#c8a24a;--coral:#e0785d;--olive:#6f7a3f;--ink:#16233e;
+    --grad:linear-gradient(90deg,var(--navy) 0%,var(--olive) 28%,var(--gold) 52%,var(--coral) 76%,var(--navy) 100%);}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);transition:background .25s,color .25s}
+  body[data-page="navy"]{background:var(--navy);color:var(--paper)}
+  header{position:sticky;top:0;z-index:5;padding:14px 28px;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,.12);display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+  body[data-page="navy"] header{background:rgba(10,16,30,.82);border-color:rgba(255,255,255,.12)}
+  header h1{font:600 16px 'Spectral',serif;margin:0;margin-right:auto}
+  label{font-size:13px} select,button{font:inherit;font-size:13px}
+  .btn{padding:5px 12px;border:1px solid currentColor;border-radius:20px;background:transparent;color:inherit;cursor:pointer}
+  .btn.on{background:var(--ink);color:var(--paper)} body[data-page="navy"] .btn.on{background:var(--paper);color:var(--navy)}
+  .row{padding:30px 28px;border-bottom:1px solid rgba(128,128,128,.2)}
+  .row h2{font:600 15px 'Spectral',serif;margin:0 0 18px}
+  .sizes{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap}
+  figure{margin:0;text-align:center}
+  .logo{background:var(--fill,var(--grad));-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+  figcaption{margin-top:8px;font-size:12px;opacity:.7}
+  .s48{width:48px;height:48px}.s96{width:96px;height:96px}.s160{width:160px;height:160px}.s240{width:240px;height:240px}
+  /* a favicon-scale check on a chip */
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:22px;background:rgba(128,128,128,.15);font:600 15px 'Spectral',serif}
+  .chip .logo{width:28px;height:28px}
+</style>
+</head>
+<body data-page="paper">
+<header>
+  <h1>Spiral logo test</h1>
+  <label>Colourway:
+    <select id="fill">
+      <option value="">Linear gradient</option>
+      <option value="var(--navy)">Solid navy</option>
+      <option value="var(--coral)">Solid coral</option>
+      <option value="var(--gold)">Solid gold</option>
+      <option value="var(--olive)">Solid olive</option>
+      <option value="var(--paper)">Solid paper (reverse)</option>
+    </select>
+  </label>
+  <label>Weight:
+    <select id="weight"><option value="w2">Bold</option><option value="w1">Medium</option></select>
+  </label>
+  <button class="btn on" id="pgPaper">Warm paper</button>
+  <button class="btn" id="pgNavy">Navy</button>
+</header>
+<div id="out"></div>
+<script>
+const spirals=['06','10','12'];
+const out=document.getElementById('out');
+function draw(){
+  const w=document.getElementById('weight').value;
+  out.innerHTML='';
+  spirals.forEach(n=>{
+    const file=`logos/spiral-logo-${n}-${w}.svg`;
+    const row=document.createElement('div'); row.className='row';
+    row.innerHTML=`<h2>spiral-logo-${n} · ${w==='w2'?'bold':'medium'}</h2>
+      <div class="sizes">
+        <figure><div class="logo s240" style="--m:url('${file}')"></div><figcaption>240px</figcaption></figure>
+        <figure><div class="logo s160" style="--m:url('${file}')"></div><figcaption>160px</figcaption></figure>
+        <figure><div class="logo s96"  style="--m:url('${file}')"></div><figcaption>96px</figcaption></figure>
+        <figure><div class="logo s48"  style="--m:url('${file}')"></div><figcaption>48px</figcaption></figure>
+        <figure><div class="chip"><div class="logo" style="--m:url('${file}')"></div>Prismatic Strategy</div><figcaption>in context</figcaption></figure>
+      </div>`;
+    out.appendChild(row);
+  });
+  setFill();
+}
+function setFill(){ const v=document.getElementById('fill').value;
+  document.querySelectorAll('.logo').forEach(l=>l.style.setProperty('--fill', v||'var(--grad)')); }
+document.getElementById('weight').onchange=draw;
+document.getElementById('fill').onchange=setFill;
+const pP=document.getElementById('pgPaper'),pN=document.getElementById('pgNavy');
+pP.onclick=()=>{document.body.dataset.page='paper';pP.classList.add('on');pN.classList.remove('on')};
+pN.onclick=()=>{document.body.dataset.page='navy';pN.classList.add('on');pP.classList.remove('on')};
+draw();
+</script>
+</body>
+</html>
