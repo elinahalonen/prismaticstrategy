@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebellion vs Legibility</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;}
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 24px;border-bottom:1px solid rgba(0,0,0,.12)}
+  header h1{font:600 16px 'Spectral',serif;margin:0}
+  header p{margin:4px 0 0;font-size:13px;opacity:.7;max-width:70ch}
+  table{border-collapse:collapse;width:100%}
+  th,td{border-bottom:1px solid rgba(0,0,0,.1);padding:18px 14px;text-align:center;vertical-align:middle}
+  th{font:600 11px 'Inter';letter-spacing:.05em;text-transform:uppercase;opacity:.6}
+  td.lbl{text-align:left;font-weight:600;font-size:13px;white-space:nowrap}
+  td.lbl small{display:block;font-weight:400;opacity:.6;white-space:normal;max-width:180px}
+  .mark{margin:0 auto;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;background:var(--navy)}
+  .navycol{background:var(--navy)} .navycol .mark{background:var(--paper)}
+  .m140{width:140px;height:140px}.m48{width:48px;height:48px}.m32{width:32px;height:32px}.m24{width:24px;height:24px}
+</style>
+</head>
+<body>
+<header>
+  <h1>spiral-12 — keeping the rebellion, fixing the mess</h1>
+  <p>The break-out triangles are the character; the problem is only that they collide at small sizes. Compare across the small columns — 48 / 32 / 24px.</p>
+</header>
+<table>
+  <thead><tr><th>Version</th><th>140px</th><th>48px</th><th>32px</th><th class="navycol">32px navy</th><th class="navycol">24px navy</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<script>
+const opts=[
+  ['F · original','logos/spiral12-reduce-F-nested3b.svg','natural positions — most rebellious, but tangles small'],
+  ['F4 · opened up','logos/spiral12-reduce-F4-open.svg','same break-out, inner triangles shrunk to open gaps + heavier stroke'],
+  ['F2 · tucked in','logos/spiral12-reduce-F2-nested3-fit.svg','fully contained — cleanest small, but loses the rebellion'],
+];
+document.getElementById('rows').innerHTML=opts.map(([n,f,d])=>`
+  <tr><td class="lbl">${n}<small>${d}</small></td>
+   <td><div class="mark m140" style="--m:url('${f}')"></div></td>
+   <td><div class="mark m48" style="--m:url('${f}')"></div></td>
+   <td><div class="mark m32" style="--m:url('${f}')"></div></td>
+   <td class="navycol"><div class="mark m32" style="--m:url('${f}')"></div></td>
+   <td class="navycol"><div class="mark m24" style="--m:url('${f}')"></div></td>
+  </tr>`).join('');
+</script>
+</body>
+</html>
