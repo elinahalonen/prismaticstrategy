@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spiral 12 Reductions</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;}
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 24px;border-bottom:1px solid rgba(0,0,0,.12)}
+  header h1{font:600 16px 'Spectral',serif;margin:0}
+  header p{margin:4px 0 0;font-size:13px;opacity:.7}
+  table{border-collapse:collapse;width:100%}
+  th,td{border-bottom:1px solid rgba(0,0,0,.1);padding:16px;text-align:center;vertical-align:middle}
+  th{font:600 12px 'Inter';letter-spacing:.05em;text-transform:uppercase;opacity:.6}
+  td.lbl{text-align:left;font-weight:600;font-size:13px;white-space:nowrap}
+  td.lbl small{display:block;font-weight:400;opacity:.6}
+  .mark{margin:0 auto;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;background:var(--navy)}
+  .navycol{background:var(--navy)} .navycol .mark{background:var(--paper)}
+  .m200{width:150px;height:150px}.m64{width:64px;height:64px}.m32{width:32px;height:32px}
+</style>
+</head>
+<body>
+<header>
+  <h1>spiral-mesh-12 — reduction options</h1>
+  <p>Original vs. reduced marks, solid, at large / 64px / 32px (favicon). Watch which ones survive the 32px column. Left cells on paper, right two on navy.</p>
+</header>
+<table>
+  <thead><tr><th>Option</th><th>150px</th><th>64px</th><th>32px</th><th class="navycol">64px navy</th><th class="navycol">32px navy</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<script>
+const opts=[
+  ['Original','upload/spiral-mesh-12.svg','24 lines, 4 triangles + connectors'],
+  ['A · outer only','logos/spiral12-reduce-A-outer.svg','1 triangle — boldest'],
+  ['B · outer + inner','logos/spiral12-reduce-B-outer-inner.svg','2 nested triangles'],
+  ['C · two rotated','logos/spiral12-reduce-C-two-rot.svg','outer + rotated = star'],
+  ['D · 4 nested','logos/spiral12-reduce-D-nested4.svg','all triangles, no connectors'],
+];
+document.getElementById('rows').innerHTML=opts.map(([name,f,desc])=>`
+  <tr>
+    <td class="lbl">${name}<small>${desc}</small></td>
+    <td><div class="mark m200" style="--m:url('${f}')"></div></td>
+    <td><div class="mark m64" style="--m:url('${f}')"></div></td>
+    <td><div class="mark m32" style="--m:url('${f}')"></div></td>
+    <td class="navycol"><div class="mark m64" style="--m:url('${f}')"></div></td>
+    <td class="navycol"><div class="mark m32" style="--m:url('${f}')"></div></td>
+  </tr>`).join('');
+</script>
+</body>
+</html>
