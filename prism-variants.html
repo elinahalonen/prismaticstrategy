@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prism Variants</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;}
+  body{margin:0;font:14px 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 24px;border-bottom:1px solid rgba(0,0,0,.12)} h1{font:600 16px 'Spectral',serif;margin:0}
+  header p{font-size:13px;opacity:.7;margin:4px 0 0;max-width:70ch}
+  .band{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:2px}
+  .band.paper{background:var(--paper)} .band.navy{background:var(--navy)}
+  .cell{padding:22px 12px;text-align:center}
+  .cell img{width:96px;height:96px;display:block;margin:0 auto 8px}
+  .cell .n{font-size:11px;opacity:.7} .band.navy .cell .n{color:var(--paper)}
+  .lbl{padding:12px 24px 4px;font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+  .band.navy + .lbl{}
+</style></head><body>
+<header><h1>Prism mark — colour & gradient set</h1>
+<p>Baked-colour files for slides &amp; docs. Solids use <code>currentColor</code>-free fixed hex; gradients sweep top-left → bottom-right. Grab any from the <code>logos/</code> folder. Placeholder brand hex — say the word and I'll swap real values.</p></header>
+
+<div class="lbl">On warm paper</div>
+<div class="band paper" id="paperBand"></div>
+<div class="lbl">On website blue</div>
+<div class="band navy" id="navyBand"></div>
+<script>
+const files=[
+ ['Navy','prism-navy'],['Paper','prism-paper'],['White','prism-white'],['Gold','prism-gold'],
+ ['Gradient · brand','prism-grad-brand'],['Gradient · warm','prism-grad-warm'],['Gradient · spectrum','prism-grad-spectrum'],
+];
+const cell=([n,f])=>`<div class="cell"><img src="logos/${f}.svg" alt="${n}"><div class="n">${n}<br>${f}.svg</div></div>`;
+document.getElementById('paperBand').innerHTML=files.map(cell).join('');
+document.getElementById('navyBand').innerHTML=files.map(cell).join('');
+</script></body></html>
