@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prism Warp</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;}
+  body{margin:0;font:14px 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 24px;border-bottom:1px solid rgba(0,0,0,.12)} h1{font:600 16px 'Spectral',serif;margin:0}
+  header p{font-size:13px;opacity:.7;margin:4px 0 0}
+  table{border-collapse:collapse;width:100%} th,td{border-bottom:1px solid rgba(0,0,0,.1);padding:18px;text-align:center;vertical-align:middle}
+  th{font:600 11px 'Inter';letter-spacing:.05em;text-transform:uppercase;opacity:.6}
+  td.lbl{text-align:left;font-weight:600} td.lbl small{display:block;font-weight:400;opacity:.6;max-width:200px}
+  .mark{margin:0 auto;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;background:var(--navy)}
+  .navycol{background:var(--navy)} .navycol .mark{background:var(--paper)}
+  .m150{width:150px;height:150px}.m48{width:48px;height:48px}.m32{width:32px;height:32px}
+</style></head><body>
+<header><h1>Pinwheel prism — with warp</h1><p>Clean pinwheel base, but the inner facets jittered so they read as refraction rather than tidy floating triangles. Outer frame stays crisp.</p></header>
+<table><thead><tr><th>Warp</th><th>150px</th><th>48px</th><th>32px</th><th class="navycol">48 navy</th></tr></thead><tbody id="rows"></tbody></table>
+<script>
+const opts=[
+ ['None (pinwheel)','logos/prism-B-pinwheel.svg','perfectly regular'],
+ ['Subtle','logos/prism-warp-subtle.svg','a touch of irregularity'],
+ ['Medium','logos/prism-warp-medium.svg','clearly warped, still balanced'],
+ ['Strong','logos/prism-warp-strong.svg','loose / refracted feel'],
+];
+document.getElementById('rows').innerHTML=opts.map(([n,f,d])=>`<tr><td class="lbl">${n}<small>${d}</small></td>
+ <td><div class="mark m150" style="--m:url('${f}')"></div></td>
+ <td><div class="mark m48" style="--m:url('${f}')"></div></td>
+ <td><div class="mark m32" style="--m:url('${f}')"></div></td>
+ <td class="navycol"><div class="mark m48" style="--m:url('${f}')"></div></td></tr>`).join('');
+</script></body></html>
