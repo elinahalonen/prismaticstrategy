@@ -146,6 +146,24 @@
   <div class="gridfam" id="gridFam"></div>
 </section>
 
+<!-- ============ NEW FAMILIES ============ -->
+<section>
+  <h2>Additional mesh families <span style="font-weight:400;font-size:14px;opacity:.6">— not yet assigned a role in the brief</span></h2>
+  <p class="role">New downloads: <b>nested-polygons</b>, <b>polar-mesh</b>, <b>spiral-mesh</b>, plus a newer rose. Shown recoloured so you can judge them as candidate focal devices / fields. Use the colour control and the paper/navy toggle to test.</p>
+  <div style="margin-bottom:18px">
+    <label style="font-size:13px">Colour:
+      <select id="newColor">
+        <option value="var(--coral)">Coral</option>
+        <option value="var(--gold)">Gold</option>
+        <option value="var(--olive)">Olive</option>
+        <option value="var(--navy)">Navy</option>
+        <option value="var(--paper)">Warm paper</option>
+      </select>
+    </label>
+  </div>
+  <div id="newFams"></div>
+</section>
+
 <script>
 const roses=[0,1,2,3,4,5,6,7,8,9,10,11,12].map(n=>`rose-mesh-${String(n).padStart(2,'0')}.svg`);
 const wavies=[0,1,2,3,4,5].map(n=>`wavy-fabric-${String(n).padStart(2,'0')}.svg`);
@@ -179,6 +197,31 @@ grids.forEach(f=>{
   c.innerHTML=`<div class="art" style="--m:url('upload/${f}')"></div><div class="name">${f}</div>`;
   gf.appendChild(c);
 });
+
+// new families (data-driven)
+const newFams={
+  'nested-polygons':[0,1,2,3,4,5,6,7,8,9,10,11],
+  'polar-mesh':[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+  'spiral-mesh':[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+  'rose-mesh (09-03)':['0903-00']
+};
+const nf=document.getElementById('newFams');
+Object.entries(newFams).forEach(([fam,nums])=>{
+  const h=document.createElement('h3'); h.textContent=fam+' ('+nums.length+')';
+  h.style.cssText='font:600 15px Spectral,serif;margin:22px 0 10px'; nf.appendChild(h);
+  const g=document.createElement('div'); g.className='gridfam';
+  const base=fam.startsWith('rose-mesh')?'rose-mesh':fam;
+  nums.forEach(n=>{
+    const num=(typeof n==='number')?String(n).padStart(2,'0'):n;
+    const file=`${base}-${num}.svg`;
+    const c=document.createElement('div'); c.className='cell';
+    c.innerHTML=`<div class="art new-art" style="--m:url('upload/${file}')"></div><div class="name">${file}</div>`;
+    g.appendChild(c);
+  });
+  nf.appendChild(g);
+});
+function setNewColor(v){ document.querySelectorAll('.new-art').forEach(a=>a.style.setProperty('--paint',v)); }
+const ncSel=document.getElementById('newColor'); ncSel.onchange=()=>setNewColor(ncSel.value); setNewColor(ncSel.value);
 
 // page bg toggle
 const pP=document.getElementById('pgPaper'), pN=document.getElementById('pgNavy');
