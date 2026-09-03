@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384.0768737792969 360.2868347167969" width="384" height="360" color="#0b2138">
+<polygon points="0.21,32.57 265.21,360.57 379.21,-0.43" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
+<line x1="0.21" y1="32.57" x2="87.38" y2="-5.56" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+<line x1="265.21" y1="360.57" x2="331.18" y2="296.20" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+<line x1="379.21" y1="-0.43" x2="436.06" y2="-35.92" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+<polygon points="87.38,-5.56 331.18,296.20 436.06,-35.92" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
+</svg>
