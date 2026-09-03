@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<title>Prism Logo</title>
+<style>
+  :root{--navy:#0b2138;--paper:#f4efe6;--gold:#c8a24a;}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 'Inter',system-ui,sans-serif;background:var(--paper);color:var(--navy)}
+  header{padding:16px 24px;border-bottom:1px solid rgba(0,0,0,.12);display:flex;gap:16px;align-items:center}
+  header h1{font:600 15px 'Inter';margin:0;margin-right:auto;letter-spacing:.02em}
+  header label{font-size:13px}
+  .pane{padding:44px 28px;border-bottom:1px solid rgba(0,0,0,.1)}
+  .pane.navy{background:var(--navy);color:var(--paper)}
+  .pane h2{font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin:0 0 26px}
+  .pane.navy h2{color:var(--paper)}
+  .sizes{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px}
+  figure{margin:0;text-align:center}
+  .mark{-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;background:var(--ink,var(--navy))}
+  .pane.navy .mark{background:var(--paper)}
+  figcaption{margin-top:8px;font-size:11px;opacity:.55}
+  .m120{width:120px;height:120px}.m64{width:64px;height:64px}.m32{width:32px;height:32px}.m16{width:16px;height:16px}
+  /* lockup */
+  .lockup{display:flex;align-items:center;gap:16px;margin-top:40px}
+  .lockup .mark{width:52px;height:52px}
+  .lockup .wm{font:600 26px 'Spectral',serif;letter-spacing:.01em}
+  .lockup .wm .thin{font-weight:400;opacity:.72}
+  /* header-bar mock like the real site */
+  .bar{margin-top:40px;display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--navy);border-radius:10px}
+  .bar .mark{width:30px;height:30px;background:var(--paper)}
+  .bar .wm{font:600 18px 'Spectral',serif;color:var(--paper)}
+  .bar .wm .thin{font-weight:400;opacity:.72}
+  .g{color:var(--gold)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Prism logo — P1, finalised</h1>
+  <label>Mark colour: <select id="ink">
+    <option value="var(--navy)">Navy</option>
+    <option value="var(--gold)">Gold</option>
+  </select></label>
+</header>
+
+<div class="pane">
+  <h2>On warm paper</h2>
+  <div class="sizes">
+    <figure><div class="mark m120" style="--m:url('logos/prism-logo.svg')"></div><figcaption>120</figcaption></figure>
+    <figure><div class="mark m64"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>64</figcaption></figure>
+    <figure><div class="mark m32"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>32 · favicon</figcaption></figure>
+    <figure><div class="mark m16"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>16</figcaption></figure>
+  </div>
+  <div class="lockup"><div class="mark" style="--m:url('logos/prism-logo.svg')"></div><div class="wm">Prismatic <span class="thin">Strategy</span></div></div>
+</div>
+
+<div class="pane navy">
+  <h2>On website blue</h2>
+  <div class="sizes">
+    <figure><div class="mark m120" style="--m:url('logos/prism-logo.svg')"></div><figcaption>120</figcaption></figure>
+    <figure><div class="mark m64"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>64</figcaption></figure>
+    <figure><div class="mark m32"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>32 · favicon</figcaption></figure>
+    <figure><div class="mark m16"  style="--m:url('logos/prism-logo.svg')"></div><figcaption>16</figcaption></figure>
+  </div>
+  <div class="lockup"><div class="mark" style="--m:url('logos/prism-logo.svg')"></div><div class="wm">Prismatic <span class="thin">Strategy</span></div></div>
+  <div class="bar"><div class="mark" style="--m:url('logos/prism-logo.svg')"></div><div class="wm">Prismatic <span class="thin">Strategy</span></div></div>
+</div>
+<script>
+document.getElementById('ink').onchange=e=>document.querySelectorAll('.pane:not(.navy) .mark').forEach(m=>m.style.setProperty('--ink',e.target.value));
+</script>
+</body>
+</html>
