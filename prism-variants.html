@@ -24,7 +24,8 @@
 <script>
 const files=[
  ['Navy','prism-navy'],['Paper','prism-paper'],['White','prism-white'],['Gold','prism-gold'],
- ['Gradient · brand','prism-grad-brand'],['Gradient · warm','prism-grad-warm'],['Gradient · spectrum','prism-grad-spectrum'],
+ ['Gradient · brand','prism-grad-brand'],['Gradient · warm','prism-grad-warm'],
+ ['Spectrum (for navy bg)','prism-grad-spectrum'],['Spectrum (for paper bg)','prism-grad-spectrum-paper'],
 ];
 const cell=([n,f])=>`<div class="cell"><img src="logos/${f}.svg" alt="${n}"><div class="n">${n}<br>${f}.svg</div></div>`;
 document.getElementById('paperBand').innerHTML=files.map(cell).join('');
