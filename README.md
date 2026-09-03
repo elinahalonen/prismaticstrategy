@@ -2,24 +2,29 @@
 
 Generated mesh/pattern SVGs for the Prismatic Strategy website, plus preview pages.
 
-## `upload/` — 24 raw (themeable) SVGs
-Numbers match the original Book of Shapes downloads, so brief references line up:
+## `upload/` — 65 SVGs
+Six families. Numbers match the original Book of Shapes downloads.
 
-- `deformed-grid-mesh-00..04`
-- `rose-mesh-00..12`  (brief's primary rose = **rose-mesh-11**, sharper alt = **rose-mesh-02**)
-- `wavy-fabric-00..05`  (brief's preferred wave = **wavy-fabric-04**)
+- **rose-mesh** (8) — kept **grey / single-colour** (brief: roses are monochrome, no gradient). `rose-mesh-02` is the kept primary. `rose-mesh-0903-00` is a newer-date rose.
+- **deformed-grid-mesh** (5), **wavy-fabric** (6), **nested-polygons** (12), **polar-mesh** (16), **spiral-mesh** (18) — **radial gradient baked in**.
 
-Colours are driven by CSS variables (`--stroke-color`, `--fill-color`,
-`--background-color`); transparent background and `viewBox` preserved.
+### Gradient treatment (non-rose files)
+Each non-rose SVG now paints a full-viewBox `<rect>` filled with a radial gradient,
+masked by the original mesh strokes — so one coherent radial runs from the centre out:
+
+`navy (#16233e) → olive (#6f7a3f) → gold (#c8a24a) → coral (#e0785d) → navy`
+
+Colours are **placeholder hex** — to rebrand, change the stops (search `stop-color`)
+or re-run the bake from the grey originals. Transparent background and `viewBox` preserved.
+Grey originals remain in `extracted/` locally (not committed).
 
 ## `preview.html` — role-based colour preview
-Shows each family doing its brief job:
-- **Rose** as monochrome focal device (Diagnose/olive · Reframe/gold · Design/coral), tested at real sizes.
-- **Wavy** as a banner: SVG alpha-mask over a CSS gradient (`navy → olive → gold → coral → navy`).
-- **Deformed grid** as an environmental field with colour confined to a seam.
-- Toggle warm-paper / navy page backgrounds; recolour roses live.
-
-Palette in `preview.html` is **placeholder hex** — swap the `:root` variables for the real brand values.
+Rose trio (Diagnose/olive · Reframe/gold · Design/coral), wavy banner, grid field,
+and an "additional families" explorer. Toggle warm-paper / navy backgrounds.
 
 ## `gallery.html` — plain grid
-All 24 SVGs as thumbnails, grouped by design, with a background switcher.
+All 65 SVGs by family, with a background switcher (defaults to mid-grey so both the
+grey roses and the navy-heavy gradients read well).
+
+> Note: CSS masks / gradients only render when served over http (local server or
+> GitHub Pages), not from a `file://` path.

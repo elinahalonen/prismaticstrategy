@@ -83,20 +83,20 @@
 <!-- ============ ROSE ============ -->
 <section>
   <h2>Rose meshes — monochrome focal devices</h2>
-  <p class="role">One colour each, no gradients. The method trio Diagnose / Reframe / Design, shown on <code>rose-mesh-11</code> (the brief's primary rose).</p>
+  <p class="role">One colour each, no gradients. The method trio Diagnose / Reframe / Design, shown on <code>rose-mesh-02</code> (kept as the primary rose).</p>
 
   <div class="rose-trio">
-    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--olive)"></div><figcaption>Diagnose<small>olive</small></figcaption></figure>
-    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--gold)"></div><figcaption>Reframe<small>gold</small></figcaption></figure>
-    <figure><div class="art" style="--m:url('upload/rose-mesh-11.svg');--paint:var(--coral)"></div><figcaption>Design<small>coral</small></figcaption></figure>
+    <figure><div class="art" style="--m:url('upload/rose-mesh-02.svg');--paint:var(--olive)"></div><figcaption>Diagnose<small>olive</small></figcaption></figure>
+    <figure><div class="art" style="--m:url('upload/rose-mesh-02.svg');--paint:var(--gold)"></div><figcaption>Reframe<small>gold</small></figcaption></figure>
+    <figure><div class="art" style="--m:url('upload/rose-mesh-02.svg');--paint:var(--coral)"></div><figcaption>Design<small>coral</small></figcaption></figure>
   </div>
 
   <p class="role" style="margin-bottom:8px">Tested at real website sizes (32 / 48 / 72 / 120px). Watch where the fine lines start to drop out:</p>
   <div class="sizes">
-    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:32px;height:32px"></div>
-    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:48px;height:48px"></div>
-    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:72px;height:72px"></div>
-    <div class="art" style="--m:url('upload/rose-mesh-11.svg');width:120px;height:120px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-02.svg');width:32px;height:32px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-02.svg');width:48px;height:48px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-02.svg');width:72px;height:72px"></div>
+    <div class="art" style="--m:url('upload/rose-mesh-02.svg');width:120px;height:120px"></div>
   </div>
 
   <p class="role" style="margin:26px 0 8px">All roses — colour set by the <b>Rose colour</b> control. Suggested files are flagged.</p>
@@ -165,10 +165,10 @@
 </section>
 
 <script>
-const roses=[0,1,2,3,4,5,6,7,8,9,10,11,12].map(n=>`rose-mesh-${String(n).padStart(2,'0')}.svg`);
+const roses=[0,1,2,3,4,6,7].map(n=>`rose-mesh-${String(n).padStart(2,'0')}.svg`);
 const wavies=[0,1,2,3,4,5].map(n=>`wavy-fabric-${String(n).padStart(2,'0')}.svg`);
 const grids=[0,1,2,3,4].map(n=>`deformed-grid-mesh-${String(n).padStart(2,'0')}.svg`);
-const rosePick={ 'rose-mesh-11.svg':'primary', 'rose-mesh-02.svg':'sharper alt' };
+const rosePick={ 'rose-mesh-02.svg':'primary (sharper)' };
 
 // rose grid
 const rg=document.getElementById('roseGrid');
